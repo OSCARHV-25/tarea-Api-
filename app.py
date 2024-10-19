@@ -9,7 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Definir el modelo de Estudiante
+#  Estudiante
 class Estudiante(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), nullable=False)
@@ -37,13 +37,13 @@ def crear_estudiante():
     db.session.commit()
     return jsonify(nuevo_estudiante.to_dict()), 201
 
-# Obtener todos los estudiantes
+#  todos los estudiantes
 @app.route('/estudiantes', methods=['GET'])
 def obtener_todos_estudiantes():
     estudiantes = Estudiante.query.all()
     return jsonify([estudiante.to_dict() for estudiante in estudiantes]), 200
 
-# Obtener un estudiante por ID
+#  un estudiante por id
 @app.route('/estudiante/<int:id_estudiante>', methods=['GET'])
 def obtener_estudiante(id_estudiante):
     estudiante = Estudiante.query.get(id_estudiante)
@@ -52,7 +52,7 @@ def obtener_estudiante(id_estudiante):
     else:
         return jsonify({'error': 'Estudiante no encontrado'}), 404
 
-# Modificar un estudiante por ID
+# mdificar un estudiante por 
 @app.route('/estudiante/<int:id_estudiante>', methods=['PUT'])
 def actualizar_estudiante(id_estudiante):
     body = request.get_json()
