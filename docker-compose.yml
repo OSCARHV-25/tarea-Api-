@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  mysql-app: # nombre del servicio, caja donde hay varios contenedores
+    image: mysql
+    container_name: mysql-apppy-container   #nombre del contenedor
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bd_tarea
+      MYSQL_USER: oscar
+      MYSQL_PASSWORD: 5592
+      #hora central
+      TZ: "CST"
+    command: ["--default-time-zone=-06:00"] #asignar la hora acutal
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-api:/var/lib/mysql #esta vinculado con el contenedor a la ruta var lib mysql
+    networks:
+        - api-network
+
+
+volumes:
+  mysql-api:
+
+networks:
+  api-network:
+    driver: bridge #driver de red
